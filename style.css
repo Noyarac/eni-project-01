@@ -19,16 +19,22 @@
 
 
 [data-theme="light"] {
-    --color-text: hsl(0, 0%, 5%);
+    --color-text: rgb(13, 13, 13);
     --color-heading: black;
     --color-background: hsl(212, 20%, 84%);
     --color-middle: hsl(212, 10%, 90%);
     --color-top: hsl(212, 5%, 98%);
     --color-link: hsl(217, 100%, 55%);
-    --color-button: hsl(217, 68%, 44%);
+    --color-button: rgb(36, 94, 188);
     --color-button-stroke: hsl(217, 80%, 55%);
     --color-button-text: hsl(0, 0%, 90%);
     --color-button-shadow: hsl(217, 49%, 15%);
+}
+[data-theme='light'] [role="radio"]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(104, 104, 104)' stroke-width='2' fill-opacity='0' /%3E%3C/svg%3E");
+}
+[data-theme='light'] [role="radio"][aria-checked="true"]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(104, 104, 104)' stroke-width='2' fill-opacity='0'/%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.2rem' fill='rgb(36, 94, 188)' stroke-opacity='0' /%3E%3C/svg%3E");
 }
 
 
@@ -101,6 +107,7 @@ button:first-child {
 
 [role="radio"] {
     padding: 0.2rem 0.5rem;
+    margin-right: 2rem;
     border: 0.1rem solid transparent;
     display: inline-block;
     position: relative;
@@ -108,8 +115,8 @@ button:first-child {
     outline: none;
 }
 
-[role="radio"]+[role="radio"] {
-    margin-left: 2rem;
+[role="radio"]:last-child {
+    margin-right: 0;
 }
 
 [role="radio"]::before {
