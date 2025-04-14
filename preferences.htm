@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo ENI - Préférences</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body data-theme="dark">
+        <nav>
+        </nav>
+
+        <main>
+            <div>
+                <div>
+                    <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Préférences du site</h2>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="theme"><h3>Thème du site</h3></label>
+                    <select name="theme" id="theme">
+                        <option value="light">Clair</option>
+                        <option value="dark">Sombre</option>
+                    </select>
+                </div>
+                <div role="radiogroup" aria-labelledby="display-label">
+                    <h3 id="display-label">Type d'affichage de la liste des apprenants</h3>
+                    <div role="radio" aria-checked="true" tabindex="0" value="list">Liste (Table)</div>
+                    <div role="radio" aria-checked="false" tabindex="-1" value="cards">Cartes (Grid)</div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button onclick="savePreferences()">Enregistrer</button>
+                    <button onclick="document.getElementById('nav-accueil').click()">Retour à la page d'accueil</button>
+                </div>
+            </div>
+        </main>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

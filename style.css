@@ -3,13 +3,20 @@
     --color-heading: white;
     --color-background: #0c0c0d;
     --color-middle: #242526;
-    --color-top: #3d3e40;
+    --color-top: rgb(61, 62, 64);
     --color-link: hsl(217, 87%, 70%);
-    --color-button: hsl(217, 51%, 30%);
-    --color-button-stroke: hsl(217, 87%, 70%);
+    --color-button: rgb(37, 67, 116);
+    --color-button-stroke: rgb(112, 163, 245);
     --color-button-text: white;
     --color-button-shadow: hsl(217, 87%, 70%);
 }
+[data-theme='dark'] [role="radio"]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(211, 211, 211)' fill='rgb(61, 62, 64)' stroke-width='2' fill-opacity='100' /%3E%3C/svg%3E");
+}
+[data-theme='dark'] [role="radio"][aria-checked="true"]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(211, 211, 211)' fill='rgb(61, 62, 64)' stroke-width='2' fill-opacity='100'/%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.2rem' fill='rgb(112, 163, 245)' stroke-opacity='0' /%3E%3C/svg%3E");
+}
+
 
 [data-theme="light"] {
     --color-text: hsl(0, 0%, 5%);
@@ -24,25 +31,31 @@
     --color-button-shadow: hsl(217, 49%, 15%);
 }
 
+
+
 * {
     border-radius: 0.3rem;
 }
 
 html {
-    margin:0;
+    margin: 0;
     padding: 0;
 }
 
 body {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 12pt;
     color: var(--color-text);
     background-color: var(--color-background);
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    padding-left: 1.5rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: var(--color-heading);
 }
 
@@ -51,12 +64,13 @@ h1 {
     margin: 0;
 }
 
-a:not(li a), a:not(li a):visited {
+a:not(nav ul li a),
+a:not(nav ul li a):visited {
     color: var(--color-link);
     text-decoration: none;
 }
 
-a:not(li a):hover {
+a:not(nav ul li a):hover {
     text-decoration: underline;
 }
 
@@ -64,11 +78,57 @@ button {
     display: inline-block;
     border: 0;
     padding: 1rem;
-    background-color: var(--color-button);
+    background-color: var(--color-text);
     margin: 0 0.25rem;
     cursor: pointer;
-    color: var(--color-button-text);
+    color: var(--color-middle);
     font-size: 1rem;
+}
+
+button:first-child {
+    background-color: var(--color-button);
+    color: var(--color-button-text);
+}
+
+/* Aria */
+[role="radiogroup"] {
+    list-style: none;
+}
+
+[role="radiogroup"]:focus {
+    outline: none;
+}
+
+[role="radio"] {
+    padding: 0.2rem 0.5rem;
+    border: 0.1rem solid transparent;
+    display: inline-block;
+    position: relative;
+    cursor: default;
+    outline: none;
+}
+
+[role="radio"]+[role="radio"] {
+    margin-left: 2rem;
+}
+
+[role="radio"]::before {
+    position: relative;
+    top: 0.125rem;
+    margin-right: 0.3rem;
+}
+
+[role="radio"][aria-checked="true"]::before {
+    position: relative;
+    top: 0.125rem;
+    margin-right: 0.3rem;
+}
+
+[role="radio"].focus,
+[role="radio"]:hover {
+    border: 0.1rem solid #005a9c;
+    background-color: var(--color-top);
+    cursor: pointer;
 }
 
 /* Navigation */
@@ -114,7 +174,8 @@ nav ul li:last-child {
     margin: 0 1rem 0 0.25rem;
 }
 
-nav ul li:hover:not(.nav-active), button:hover {
+nav ul li:hover:not(.nav-active),
+button:hover {
     background-color: var(--color-button-stroke);
     box-shadow: 0 0 15px -5px var(--color-button-stroke);
     color: var(--color-middle);
@@ -174,7 +235,8 @@ div:has(table) {
     overflow: scroll;
 }
 
-th, td {
+th,
+td {
     padding: 0.5rem 1rem;
 }
 
@@ -203,6 +265,7 @@ tbody tr:nth-child(even) {
         flex-grow: 1;
         margin: 0.1rem;
     }
+
     nav ul li:last-child {
         flex-grow: 1;
         margin: 0.1rem;
@@ -211,7 +274,7 @@ tbody tr:nth-child(even) {
     nav button {
         display: block;
     }
-    
+
     main {
         margin: 0 0.3rem;
         padding-top: 4rem;

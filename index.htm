@@ -15,11 +15,12 @@
         <main>
             <div>
                 <div>
-                    <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Accueil - Liste des apprenants</h2>
+                    <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Accueil</h2>
                 </div>
             </div>
             <div>
-                <div>
+                <div style="flex-grow: 2;">
+                    <h3>Liste des apprenants</h3>
                     <table>
                         <thead>
                             <tr>
@@ -51,14 +52,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <fieldset>
-                        <legend>Type d'affichage</legend>
-                        <input type="radio" name="affichage" id="affichage-liste" value="liste" title="Liste" checked>
-                        <label for="affichage-liste">Liste</label>
-                        <input type="radio"  name="affichage" id="affichage-cartes" value="cartes">
-                        <label for="affichage-cartes">Cartes</label>
-                    </fieldset>
+                <div style="flex-grow: 0;" role="radiogroup" aria-labelledby="display-label">
+                    <h3 id="display-label">Type d'affichage</h3>
+                    <div role="radio" aria-checked="true" tabindex="0" value="list">Liste (Table)</div>
+                    <div role="radio" aria-checked="false" tabindex="-1" value="cards">Cartes (Grid)</div>
                 </div>
             </div>
         </main>
