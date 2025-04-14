@@ -1,0 +1,213 @@
+[data-theme="dark"] {
+    --color-text: rgb(211, 211, 211);
+    --color-heading: white;
+    --color-background: #0c0c0d;
+    --color-middle: #242526;
+    --color-top: #3d3e40;
+    --color-link: hsl(217, 87%, 70%);
+    --color-button: hsl(217, 51%, 30%);
+    --color-button-stroke: hsl(217, 87%, 70%);
+    --color-button-text: white;
+    --color-button-shadow: hsl(217, 87%, 70%);
+}
+
+[data-theme="light"] {
+    --color-text: hsl(0, 0%, 5%);
+    --color-heading: black;
+    --color-background: hsl(212, 20%, 84%);
+    --color-middle: hsl(212, 10%, 90%);
+    --color-top: hsl(212, 5%, 98%);
+    --color-link: hsl(217, 100%, 55%);
+    --color-button: hsl(217, 68%, 44%);
+    --color-button-stroke: hsl(217, 80%, 55%);
+    --color-button-text: hsl(0, 0%, 90%);
+    --color-button-shadow: hsl(217, 49%, 15%);
+}
+
+* {
+    border-radius: 0.3rem;
+}
+
+html {
+    margin:0;
+    padding: 0;
+}
+
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding-left: 1.5rem;
+    color: var(--color-heading);
+}
+
+a:not(li a), a:not(li a):visited {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+a:not(li a):hover {
+    text-decoration: underline;
+}
+
+button {
+    display: inline-block;
+    border: 0;
+    padding: 1rem;
+    background-color: var(--color-button);
+    margin: 0 0.25rem;
+    cursor: pointer;
+    color: var(--color-button-text);
+    font-size: 1rem;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: auto;
+    background-color: var(--color-middle);
+    margin: 0 0 2rem;
+}
+
+nav img {
+    position: absolute;
+    max-height: 100%;
+    height: auto;
+}
+
+nav h1 {
+    margin: auto;
+}
+
+nav button {
+    display: none;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 1rem;
+    margin: 0 0.25rem;
+    background-color: var(--color-middle);
+    border: 0.1rem solid var(--color-button-stroke);
+    cursor: pointer;
+    color: var(--color-button-stroke);
+    transition: background-color 0.1s ease-out, color 0.1s ease-out;
+}
+
+nav ul li:last-child {
+    margin: 0 1rem 0 0.25rem;
+}
+
+nav ul li:hover:not(.nav-active), button:hover {
+    background-color: var(--color-button-stroke);
+    box-shadow: 0 0 15px -5px var(--color-button-stroke);
+    color: var(--color-middle);
+    border-color: var(--color-button-stroke);
+    transition: background-color 0.1s ease-out, color 0.1s ease-out;
+}
+
+nav ul li a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.nav-active {
+    background-color: var(--color-top);
+    border: 0.1rem solid var(--color-top);
+    color: var(--color-text);
+}
+
+.nav-active:hover {
+    border: 0.1rem solid var(--color-text);
+}
+
+/* Main */
+main {
+    margin: 0 3rem 1rem;
+    padding-top: 7rem;
+}
+
+main>div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+main>div>div {
+    background-color: var(--color-middle);
+    flex-grow: 1;
+    padding: 2rem 1rem;
+    margin: 0.5rem;
+}
+
+main>div>div>p {
+    padding-left: 1.5rem;
+}
+
+
+/* Table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+}
+
+div:has(table) {
+    overflow: scroll;
+}
+
+th, td {
+    padding: 0.5rem 1rem;
+}
+
+thead tr {
+    background-color: var(--color-button);
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--color-top);
+}
+
+@media screen and (max-width: 800px) {
+    nav h1 {
+        line-height: 3rem;
+    }
+
+    nav ul {
+        display: none;
+        flex-flow: column nowrap;
+        position: absolute;
+        top: 3rem;
+        width: 100%;
+    }
+
+    nav ul li {
+        flex-grow: 1;
+        margin: 0.1rem;
+    }
+    nav ul li:last-child {
+        flex-grow: 1;
+        margin: 0.1rem;
+    }
+
+    nav button {
+        display: block;
+    }
+    
+    main {
+        margin: 0 0.3rem;
+        padding-top: 4rem;
+    }
+}
