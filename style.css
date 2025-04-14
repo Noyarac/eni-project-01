@@ -46,6 +46,11 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-heading);
 }
 
+h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
 a:not(li a), a:not(li a):visited {
     color: var(--color-link);
     text-decoration: none;
@@ -97,7 +102,6 @@ nav ul {
 
 nav ul li {
     display: inline-block;
-    padding: 1rem;
     margin: 0 0.25rem;
     background-color: var(--color-middle);
     border: 0.1rem solid var(--color-button-stroke);
@@ -119,6 +123,8 @@ nav ul li:hover:not(.nav-active), button:hover {
 }
 
 nav ul li a {
+    display: block;
+    padding: 1rem;
     color: inherit;
     text-decoration: none;
 }

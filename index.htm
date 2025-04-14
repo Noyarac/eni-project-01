@@ -4,35 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promo ENI - Accueil</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 </head>
 <body data-theme="dark">
         <nav>
-            <a href="#">
-                <img src="images/logo.png" alt="Logo ENI" title="Logo ENI">
-            </a>
-            <h1>Promo XXX</h1>
-            <button type="button" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <ul>
-                <li id="nav-accueil" class="nav-active">
-                    <a aria-current="page" href="#">Accueil</a>
-                </li>
-                <li id="nav-preferences">
-                    <a href="#">Préférences</a>
-                </li>
-                <li id="nav-carte">
-                    <a href="#">Carte</a>
-                </li>
-                <li id="nav-informations">
-                    <a href="#">Informations</a>
-                </li>
-            </ul>
         </nav>
 
         <main>
+            <div>
+                <div>
+                    <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Accueil - Liste des apprenants</h2>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Ville</th>
+                                <th>Détails</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lorem</td>
+                                <td>Alice</td>
+                                <td>Lyon</td>
+                                <td><a href="">Détails</a></td>
+                            </tr>
+                            <tr>
+                                <td>Ipsum</td>
+                                <td>Bob</td>
+                                <td>Paris</td>
+                                <td><a href="">Détails</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dolores</td>
+                                <td>Claire</td>
+                                <td>Marseille</td>
+                                <td><a href="">Détails</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>Type d'affichage</legend>
+                        <input type="radio" name="affichage" id="affichage-liste" value="liste" title="Liste" checked>
+                        <label for="affichage-liste">Liste</label>
+                        <input type="radio"  name="affichage" id="affichage-cartes" value="cartes">
+                        <label for="affichage-cartes">Cartes</label>
+                    </fieldset>
+                </div>
+            </div>
         </main>
 
     <script src="script.js" defer></script>
