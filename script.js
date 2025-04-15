@@ -19,6 +19,27 @@ function init() {
         const radio = document.querySelector(`[role='radio'][value=${displayValue}]`);
         if (radio) radio.click();
     }
+
+    switch(pageName) {
+      case 'index':
+        fetch('./promo.json')
+        .then(response => response.json())
+        .then(data => {
+          const tbody = document.querySelector('tbody');
+          for (let apprenant of data.apprenants) {
+            const tr = document.createElement('tr');
+            tbody.append(tr);
+            ['nom', 'prenom', 'ville'].forEach(titre => {
+              const td = document.createElement('td');
+              td.innerText = apprenant[titre];
+              tr.append(td);
+            });
+            const td = document.createElement('td');
+            td.innerHTML = '<a href="#">D&eacute;tails</a>';
+            tr.append(td);
+          }
+        })
+    }
 }
 
 class RadioGroup {

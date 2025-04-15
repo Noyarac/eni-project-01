@@ -1,0 +1,40 @@
+{
+    "apprenants" : [
+      {
+        "id": 1,
+        "nom": "SCHMIDT",
+        "prenom": "Thomas",
+        "ville": "Maillezais",
+        "avatar": "../Ressources/avatar-thomas.png",
+        "anecdotes": "Joue de la Musique",
+        "coordonnees": {
+          "latitude": "46.371268725451536",
+          "longitude": "-0.7392238873816038"
+        }
+      },
+      {
+        "id": 2,
+        "nom": "CARAYON",
+        "prenom": "Benjamin",
+        "ville": "Dijon",
+        "avatar": "../Ressources/avatar-benjamin.png",
+        "anecdotes": "Brasse sa propre bière",
+        "coordonnees": {
+          "latitude": "47.321587",
+          "longitude": "5.0446942"
+        }
+      },
+      {
+        "id": 3,
+        "nom": "MAZUE",
+        "prenom": "Élodie",
+        "ville": "Meslay-le-Vidame",
+        "avatar": "../Ressources/avatar-elodie.png",
+        "anecdotes": "Travaillait dans le développement de produits cosmétiques",
+        "coordonnees": {
+          "latitude": "48.2806513",
+          "longitude": "1.4626627"
+        }
+      }
+    ]
+  }
