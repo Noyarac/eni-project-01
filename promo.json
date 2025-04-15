@@ -2,7 +2,7 @@
     "apprenants" : [
       {
         "id": 1,
-        "nom": "SCHMIDT",
+        "nom": "Schmidt",
         "prenom": "Thomas",
         "ville": "Maillezais",
         "avatar": "../Ressources/avatar-thomas.png",
@@ -14,7 +14,7 @@
       },
       {
         "id": 2,
-        "nom": "CARAYON",
+        "nom": "Carayon",
         "prenom": "Benjamin",
         "ville": "Dijon",
         "avatar": "../Ressources/avatar-benjamin.png",
@@ -26,7 +26,7 @@
       },
       {
         "id": 3,
-        "nom": "MAZUE",
+        "nom": "Mazué",
         "prenom": "Élodie",
         "ville": "Meslay-le-Vidame",
         "avatar": "../Ressources/avatar-elodie.png",
