@@ -1,6 +1,6 @@
 [data-theme="dark"] {
     --color-text: rgb(211, 211, 211);
-    --color-heading: white;
+    --color-heading: rgb(167, 174, 185);
     --color-background: #0c0c0d;
     --color-middle: #242526;
     --color-top: rgb(61, 62, 64);
@@ -19,8 +19,8 @@
 
 
 [data-theme="light"] {
-    --color-text: rgb(13, 13, 13);
-    --color-heading: black;
+    --color-text: rgb(41, 41, 41);
+    --color-heading: hsl(212, 52%, 44%);
     --color-background: hsl(212, 20%, 84%);
     --color-middle: hsl(212, 10%, 90%);
     --color-top: hsl(212, 5%, 98%);
@@ -49,7 +49,11 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
     font-size: 12pt;
     color: var(--color-text);
     background-color: var(--color-background);
@@ -62,12 +66,24 @@ h3,
 h4,
 h5,
 h6 {
+    font-family: "Archivo Black", sans-serif;
+    font-style: normal;
     color: var(--color-heading);
+    font-weight: 900;
+    text-transform: uppercase;
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     margin: 0;
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-size: 1rem;
 }
 
 a:not(nav ul li a),
@@ -85,7 +101,7 @@ button {
     border: 0;
     padding: 1rem;
     background-color: var(--color-text);
-    margin: 0 0.25rem;
+    margin: 0.25rem 0.25rem;
     cursor: pointer;
     color: var(--color-middle);
     font-size: 1rem;
@@ -141,21 +157,19 @@ button:first-child {
 /* Navigation */
 nav {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     width: 100%;
-    height: auto;
     background-color: var(--color-middle);
     margin: 0 0 2rem;
 }
 
-nav img {
-    position: absolute;
-    max-height: 100%;
-    height: auto;
-}
-
-nav h1 {
-    margin: auto;
+#nav-logo {
+    display: block;
+    height: 5.5rem;
+    aspect-ratio: 1/1;
+    background-size:contain;
 }
 
 nav button {
@@ -165,6 +179,7 @@ nav button {
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin-right: 0.75rem;
 }
 
 nav ul li {
@@ -175,10 +190,6 @@ nav ul li {
     cursor: pointer;
     color: var(--color-button-stroke);
     transition: background-color 0.1s ease-out, color 0.1s ease-out;
-}
-
-nav ul li:last-child {
-    margin: 0 1rem 0 0.25rem;
 }
 
 nav ul li:hover:not(.nav-active),
@@ -257,33 +268,40 @@ tbody tr:nth-child(even) {
 
 @media screen and (max-width: 800px) {
     nav h1 {
+        font-size: 1rem;
         line-height: 3rem;
     }
 
     nav ul {
-        display: none;
         flex-flow: column nowrap;
         position: absolute;
+        /* align-items: stretch; */
         top: 3rem;
         width: 100%;
+        background-color: var(--color-top);
+        gap: 0.3rem;
     }
 
     nav ul li {
-        flex-grow: 1;
-        margin: 0.1rem;
+        margin: 0 1rem;
     }
 
     nav ul li:last-child {
-        flex-grow: 1;
-        margin: 0.1rem;
+        margin-bottom: 1rem;
     }
 
     nav button {
         display: block;
+        padding: 0.55rem;
+        margin: 0;
     }
 
     main {
         margin: 0 0.3rem;
         padding-top: 4rem;
+    }
+
+    #nav-logo {
+        height: 3em;
     }
 }
