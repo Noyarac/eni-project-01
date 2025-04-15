@@ -22,22 +22,9 @@ function init() {
 
     switch(pageName) {
       case 'index':
-        fetch('./promo.json')
-        .then(response => response.json())
-        .then(data => {
-          const tbody = document.querySelector('tbody');
-          for (let apprenant of data.apprenants) {
-            const tr = document.createElement('tr');
-            tbody.append(tr);
-            ['nom', 'prenom', 'ville'].forEach(titre => {
-              const td = document.createElement('td');
-              td.innerText = apprenant[titre];
-              tr.append(td);
-            });
-            const td = document.createElement('td');
-            td.innerHTML = '<a href="#">D&eacute;tails</a>';
-            tr.append(td);
-          }
+        if (displayValue) {if (displayValue == "list") {generateTable()} else {generateCards()}};
+        document.querySelectorAll(`[role='radio']`).forEach(radio => {
+          radio.addEventListener("click", toggleDisplay);
         })
     }
 }
@@ -202,4 +189,70 @@ function saveTheme() {
 function savePreferences() {
     saveDisplay();
     saveTheme();
+}
+
+function generateTable() {
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const tr = document.createElement('tr');
+  const tbody = document.createElement('tbody');
+  table.append(thead);
+  thead.append(tr);
+  table.append(tbody);
+  ['Nom', 'Prénom', 'Ville', 'Détails'].forEach(titre => {
+    const th = document.createElement('th'); 
+    tr.append(th);
+    th.innerText = titre;
+  });
+  fetch('./promo.json')
+  .then(response => response.json())
+  .then(data => {
+    for (let apprenant of data.apprenants) {
+      const tr = document.createElement('tr');
+      tbody.append(tr);
+      ['nom', 'prenom', 'ville'].forEach(titre => {
+        const td = document.createElement('td');
+        td.innerText = apprenant[titre];
+        tr.append(td);
+      });
+      const td = document.createElement('td');
+      td.innerHTML = '<a href="#">D&eacute;tails</a>';
+      tr.append(td);
+    }
+  });
+  const apprenants = document.getElementById('apprenants');
+  apprenants.innerHTML = '';
+  apprenants.append(table);
+}
+
+function generateCards() {
+  const apprenants = document.getElementById('apprenants');
+  apprenants.innerHTML = '';
+  fetch('./promo.json')
+  .then(response => response.json())
+  .then(data => {
+    for (let apprenant of data.apprenants) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      const h4 = document.createElement('h4');
+      h4.innerText = apprenant.prenom + ' ' + apprenant.nom;
+      card.append(h4);
+      const p = document.createElement('p');
+      p.innerText = apprenant.ville;
+      card.append(p);
+      const a = document.createElement('a');
+      a.setAttribute('href', '#');
+      a.innerText = 'Détails';
+      card.append(a);
+      apprenants.append(card);
+    }
+  });
+}
+
+function toggleDisplay(event) {
+  if (event.srcElement.getAttribute('value') == "list") {
+    generateTable()
+  } else {
+    generateCards()
+  }
 }
