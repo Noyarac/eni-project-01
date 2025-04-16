@@ -1,32 +1,39 @@
 const pageName = window.location.pathname.split('/').pop().split('.htm')[0];
 
 window.onload = init;
-function init() {
-    loadNav();
-    const radios = document.querySelectorAll('[role="radiogroup"]');
-    for (let i = 0; i < radios.length; i++) {
-      new RadioGroup(radios[i]);
-    }
+async function init() {
+  await loadNav();
+  const radios = document.querySelectorAll('[role="radiogroup"]');
+  for (let i = 0; i < radios.length; i++) {
+    new RadioGroup(radios[i]);
+  }
 
-    const themeValue = localStorage.getItem('theme');
-    const displayValue = localStorage.getItem('display');
-    if (themeValue) {
-        const option = document.querySelector(`option[value=${themeValue}]`);
-        if (option) option.setAttribute("selected", true);
-        document.body.setAttribute('data-theme', themeValue)
-    }
-    if (displayValue) {
-        const radio = document.querySelector(`[role='radio'][value=${displayValue}]`);
-        if (radio) radio.click();
-    }
+  const themeValue = localStorage.getItem('theme');
+  const displayValue = localStorage.getItem('display');
+  if (themeValue) {
+      const option = document.querySelector(`option[value=${themeValue}]`);
+      if (option) option.setAttribute("selected", true);
+      document.body.setAttribute('data-theme', themeValue)
+  }
+  if (displayValue) {
+      const radio = document.querySelector(`[role='radio'][value=${displayValue}]`);
+      if (radio) radio.click();
+  }
 
-    switch(pageName) {
-      case 'index':
-        if (displayValue) {if (displayValue == "list") {generateTable()} else {generateCards()}};
-        document.querySelectorAll(`[role='radio']`).forEach(radio => {
-          radio.addEventListener("click", toggleDisplay);
-        })
-    }
+  document.getElementById('nav-' + pageName).querySelector('a').setAttribute("aria-current", "page");
+
+  switch(pageName) {
+    case 'index':
+      if (displayValue) {if (displayValue == "list") {generateTable()} else {generateCards()}};
+      document.querySelectorAll(`[role='radio']`).forEach(radio => {
+        radio.addEventListener("focus", toggleDisplay);
+      });
+      break;
+    case 'carte':
+      loadMap();
+      break;
+  }
+  document.querySelector("nav a").focus();
 }
 
 class RadioGroup {
@@ -146,17 +153,17 @@ class RadioGroup {
   }
 
 
-function loadNav() {
-    fetch(`./nav.htm`)
+async function loadNav() {
+    return fetch(`./nav.htm`)
     .then(response => response.text())
     .then(data => {
         const nav = document.querySelector('nav');
         nav.innerHTML = data;
-        const li = nav.querySelector('#nav-' + pageName);
 
         nav.querySelector('nav button').addEventListener('click', toggleMenu)
 
         document.querySelectorAll('nav ul li').forEach(li => li.classList.remove("nav-active"));
+        const li = nav.querySelector('#nav-' + pageName);
         li.classList.add("nav-active");
         if (window.innerWidth < 800) toggleMenu();
     })
@@ -170,9 +177,11 @@ function toggleMenu() {
     if (span.innerText == 'menu') {
         span.innerText = 'close';
         ul.style.display = 'flex';
+        ul.setAttribute('aria-hidden', false);
     } else {
         span.innerText = 'menu';
         ul.style.display = 'none';
+        ul.setAttribute('aria-hidden', true);
     }
 }
 function saveDisplay() {
@@ -201,6 +210,7 @@ function generateTable() {
   table.append(tbody);
   ['Nom', 'Prénom', 'Ville', 'Détails'].forEach(titre => {
     const th = document.createElement('th'); 
+    th.setAttribute('scope', 'col');
     tr.append(th);
     th.innerText = titre;
   });
@@ -255,4 +265,16 @@ function toggleDisplay(event) {
   } else {
     generateCards()
   }
+}
+
+function loadMap() {
+  fetch('./promo.json')
+  .then(response => response.json())
+  .then(data => {
+    function getAverage(axe) {
+      console.log(axe + ': ' + data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length)
+      return data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length;
+    }
+    let map = L.map('map').setView([getAverage('latitude'), getAverage('longitude')], 13);
+  });
 }
