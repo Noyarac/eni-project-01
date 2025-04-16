@@ -6,6 +6,7 @@
     <title>Promo ENI - Accueil</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="promo-eni.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -32,6 +33,30 @@
                     <div role="radio" aria-checked="false" tabindex="-1" value="cards" aria-label="Afficher en cartes">Cartes (Grid)</div>
                 </div>
             </div>
+            <dialog>
+                <div id="modal">
+                    <div>
+                        <img src="" alt="">
+                        <div id="modal-details">
+                            <h3>Détails</h3>
+                            <table>
+                                <tr>
+                                    <th>Nom</th><td id="modal-nom"></td>
+                                </tr>
+                                <tr>
+                                    <th>Prénom</th><td id="modal-prenom"></td>
+                                </tr>
+                                <tr>
+                                    <th>Ville</th><td id="modal-ville"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <h3>Anecdote</h3>
+                    <div><p id="anecdote"></p></div>
+                    <div><button onclick="document.querySelector('dialog').close()">Fermer</button></div>
+                </div>
+            </dialog>
         </main>
 
     <script src="script.js" defer></script>

@@ -34,9 +34,9 @@
     --color-subheading: hsl(215, 100%, 67%);
     --color-background: hsl(216, 6%, 90%);
     --color-middle: hsl(212, 10%, 98%);
-    --color-top: hsl(212, 5%, 100%);
+    --color-top: hsl(0, 0%, 93%);
     --color-link: rgb(52, 167, 96);
-    --color-button: rgb(28, 78, 159);
+    --color-button: hsl(212, 84%, 35%);
     --color-button-stroke: hsl(217, 80%, 55%);
     --color-button-text: hsl(0, 0%, 90%);
     --color-button-shadow: hsl(217, 49%, 15%);
@@ -135,7 +135,12 @@ h4:first-child {
     margin-top: 0;
 }
 
+p {
+    color: var(--color-text);
+}
+
 ul {
+    background-color: var(--color-top);
     list-style-type: square;
 }
 
@@ -169,6 +174,15 @@ button:first-child {
     background-color: var(--color-button);
     border-color: var(--color-button);
     color: var(--color-button-text);
+}
+
+dialog {
+    border: 0;
+    background-color: var(--color-middle);
+}
+
+dialog::backdrop {
+    background-color: rgba(0,0,0,80%);
 }
 
 /* Aria */
@@ -316,9 +330,12 @@ div:has(table) {
 th,
 td {
     padding: 0.5rem 1rem;
+    color: var(--color-text);
 }
 
-thead tr {
+th {
+    color: var(--color-button-text);
+    border-radius: 0;
     background-color: var(--color-button);
 }
 
@@ -330,12 +347,6 @@ tbody tr:nth-child(even) {
     flex-grow: 1;
     padding: 1rem;
     background-color: var(--color-top);
-}
-
-#apprenants {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 0.5rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -359,10 +370,8 @@ tbody tr:nth-child(even) {
     nav ul {
         flex-flow: column nowrap;
         position: absolute;
-        /* align-items: stretch; */
         top: 3rem;
         width: 100%;
-        background-color: var(--color-top);
         gap: 0.3rem;
     }
 

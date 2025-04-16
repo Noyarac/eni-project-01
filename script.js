@@ -28,6 +28,7 @@ async function init() {
       document.querySelectorAll(`[role='radio']`).forEach(radio => {
         radio.addEventListener("focus", toggleDisplay);
       });
+
       break;
     case 'carte':
       loadMap();
@@ -226,7 +227,12 @@ function generateTable() {
         tr.append(td);
       });
       const td = document.createElement('td');
-      td.innerHTML = '<a href="#">D&eacute;tails</a>';
+      const a = document.createElement('a');
+      a.addEventListener('click', displayModal);
+      a.innerText = 'Détails'
+      a.id = 'delails-' + apprenant.id;
+      a.setAttribute('href', '#');
+      td.append(a);
       tr.append(td);
     }
   });
@@ -251,7 +257,9 @@ function generateCards() {
       p.innerText = apprenant.ville;
       card.append(p);
       const a = document.createElement('a');
+      a.id = 'delails-' + apprenant.id;
       a.setAttribute('href', '#');
+      a.addEventListener('click', displayModal);
       a.innerText = 'Détails';
       card.append(a);
       apprenants.append(card);
@@ -285,4 +293,18 @@ function loadMap() {
       marker.bindPopup(apprenant.prenom + ' ' + apprenant.nom);
     });
   });
+}
+
+async function displayModal(event) {
+  const apprenant = await fetch('./promo.json')
+    .then(response => response.json())
+    .then(data => {
+      return data.apprenants.filter(apprenant => apprenant.id == event.srcElement.id.split('delails-').pop()).pop();
+    });
+  ['nom', 'prenom', 'ville'].forEach(titre => document.getElementById('modal-' + titre).innerText = apprenant[titre])
+  const img = document.querySelector('dialog img');
+  img.addEventListener('error', () => img.setAttribute('src', './images/avatar.png'))
+  img.setAttribute('src', './images/avatar-' +  (apprenant.prenom).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '.png');
+  document.getElementById('anecdote').innerText = apprenant.anecdotes;
+  document.querySelector('dialog').showModal();
 }
