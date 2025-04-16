@@ -275,6 +275,14 @@ function loadMap() {
       console.log(axe + ': ' + data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length)
       return data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length;
     }
-    let map = L.map('map').setView([getAverage('latitude'), getAverage('longitude')], 13);
+    let map = L.map('map').setView([getAverage('latitude'), getAverage('longitude')], 7);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    data.apprenants.forEach(apprenant => {
+      const marker = L.marker([parseFloat(apprenant.coordonnees.latitude), parseFloat(apprenant.coordonnees.longitude)]).addTo(map);
+      marker.bindPopup(apprenant.prenom + ' ' + apprenant.nom);
+    });
   });
 }
