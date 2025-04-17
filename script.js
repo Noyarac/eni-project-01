@@ -8,33 +8,35 @@ async function init() {
     new RadioGroup(radios[i]);
   }
 
-  const themeValue = localStorage.getItem('theme');
-  const displayValue = localStorage.getItem('display');
-  if (themeValue) {
-      const option = document.querySelector(`option[value=${themeValue}]`);
-      if (option) option.setAttribute("selected", true);
-      document.body.setAttribute('data-theme', themeValue)
+  let themeValue = localStorage.getItem('theme');
+  let displayValue = localStorage.getItem('display');
+  if (!themeValue) {
+    const preferdTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+    localStorage.setItem('theme', preferdTheme);
+    themeValue = preferdTheme;
   }
-  if (displayValue) {
-      const radio = document.querySelector(`[role='radio'][value=${displayValue}]`);
-      if (radio) radio.click();
+  if (!displayValue) {
+    localStorage.setItem('display', 'list');
+    displayValue = 'list';
   }
+  const option = document.querySelector(`option[value=${themeValue}]`);
+  if (option) option.setAttribute("selected", true);
+  document.body.setAttribute('data-theme', themeValue)
+  const radio = document.querySelector(`[role='radio'][value=${displayValue}]`);
+  if (radio) radio.click();
 
-  document.getElementById('nav-' + pageName).querySelector('a').setAttribute("aria-current", "page");
+  document.getElementById('nav-' + pageName).setAttribute("aria-current", "page");
 
   switch(pageName) {
     case 'index':
       if (displayValue) {if (displayValue == "list") {generateTable()} else {generateCards()}};
-      document.querySelectorAll(`[role='radio']`).forEach(radio => {
-        radio.addEventListener("focus", toggleDisplay);
-      });
-
       break;
     case 'carte':
       loadMap();
       break;
+    case 'informations':
+      loadInfos();
   }
-  document.querySelector("nav a").focus();
 }
 
 class RadioGroup {
@@ -55,8 +57,8 @@ class RadioGroup {
         rb.setAttribute('aria-checked', 'false');
   
         rb.addEventListener('keydown', this.handleKeydown.bind(this));
-        rb.addEventListener('click', this.handleClick.bind(this));
         rb.addEventListener('focus', this.handleFocus.bind(this));
+        rb.addEventListener('click', this.handleClick.bind(this));
         rb.addEventListener('blur', this.handleBlur.bind(this));
   
         this.radioButtons.push(rb);
@@ -77,7 +79,7 @@ class RadioGroup {
       }
       currentItem.setAttribute('aria-checked', 'true');
       currentItem.tabIndex = 0;
-      currentItem.focus();
+      // currentItem.focus();
     }
   
     setCheckedToPreviousItem(currentItem) {
@@ -85,9 +87,11 @@ class RadioGroup {
   
       if (currentItem === this.firstRadioButton) {
         this.setChecked(this.lastRadioButton);
+        this.lastRadioButton.focus();
       } else {
         index = this.radioButtons.indexOf(currentItem);
         this.setChecked(this.radioButtons[index - 1]);
+        this.radioButtons[index - 1].focus();
       }
     }
   
@@ -96,9 +100,11 @@ class RadioGroup {
   
       if (currentItem === this.lastRadioButton) {
         this.setChecked(this.firstRadioButton);
+        this.firstRadioButton.focus();
       } else {
         index = this.radioButtons.indexOf(currentItem);
         this.setChecked(this.radioButtons[index + 1]);
+        this.radioButtons[index + 1].focus();
       }
     }
   
@@ -146,7 +152,10 @@ class RadioGroup {
   
     handleFocus(event) {
       event.currentTarget.classList.add('focus');
+      if (pageName == 'index') toggleDisplay(event);
+      this.setChecked(event.currentTarget);
     }
+
   
     handleBlur(event) {
       event.currentTarget.classList.remove('focus');
@@ -163,9 +172,9 @@ async function loadNav() {
 
         nav.querySelector('nav button').addEventListener('click', toggleMenu)
 
-        document.querySelectorAll('nav ul li').forEach(li => li.classList.remove("nav-active"));
-        const li = nav.querySelector('#nav-' + pageName);
-        li.classList.add("nav-active");
+        document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove("nav-active"));
+        const a = nav.querySelector('#nav-' + pageName);
+        a.classList.add("nav-active");
         if (window.innerWidth < 800) toggleMenu();
     })
 }
@@ -260,6 +269,8 @@ function generateCards() {
       a.id = 'delails-' + apprenant.id;
       a.setAttribute('href', '#');
       a.addEventListener('click', displayModal);
+      a.style.display = "block";
+      a.style.marginTop = "1.2rem";
       a.innerText = 'Détails';
       card.append(a);
       apprenants.append(card);
@@ -280,7 +291,6 @@ function loadMap() {
   .then(response => response.json())
   .then(data => {
     function getAverage(axe) {
-      console.log(axe + ': ' + data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length)
       return data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length;
     }
     let map = L.map('map').setView([getAverage('latitude'), getAverage('longitude')], 7);
@@ -307,4 +317,14 @@ async function displayModal(event) {
   img.setAttribute('src', './images/avatar-' +  (apprenant.prenom).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '.png');
   document.getElementById('anecdote').innerText = apprenant.anecdotes;
   document.querySelector('dialog').showModal();
+}
+
+function loadInfos() {
+  fetch('./promo.json')
+    .then(response => response.json())
+    .then(data => {
+      ['date-debut', 'date-fin', 'nom-promo'].forEach(titre => document.getElementById(titre).innerText = data[titre]);
+      document.getElementById("description").innerHTML = data["description"];
+      document.getElementById('quantite-apprenants').innerText = data.apprenants.length;
+    });
 }

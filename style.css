@@ -72,6 +72,7 @@ html {
 }
 
 body {
+    position: relative;
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -140,7 +141,6 @@ p {
 }
 
 ul {
-    background-color: var(--color-top);
     list-style-type: square;
 }
 
@@ -229,6 +229,7 @@ dialog::backdrop {
 
 /* Navigation */
 nav {
+    z-index: 10000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -368,11 +369,14 @@ tbody tr:nth-child(even) {
     }
 
     nav ul {
+        background-color: var(--color-top);
+        z-index: 20000;
         flex-flow: column nowrap;
         position: absolute;
-        top: 3rem;
+        top: 2rem;
         width: 100%;
         gap: 0.3rem;
+        padding-top: 1rem;
     }
 
     nav ul li {

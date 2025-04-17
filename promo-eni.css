@@ -4,11 +4,9 @@
     gap: 0.5rem;
 }
 
-#modal {
-    display: flex;
-    align-items: center;
-    flex-flow: column nowrap;
-    margin: 2.5rem 2.5rem 2rem 2.5rem;
+#map {
+    position: relative;
+    z-index: 0;
 }
 
 #modal-details {
@@ -19,9 +17,6 @@
     padding-left: 1rem;
 }
 
-#modal>* {
-    width: 100%;
-}
 #modal div:first-child {
     display: flex;
     flex-flow: row wrap;
@@ -32,18 +27,4 @@
 #modal th {
     background-color: unset;
     color: var(--color-text);
-}
-
-#modal p {
-    margin-top: 0;
-}
-
-@media screen and (max-width: 800px) {
-    #modal-details {
-        margin-top: 1rem;
-        margin-left: 0;
-    }
-    #modal-details h3 {
-        padding-left: 0;
-    }
 }

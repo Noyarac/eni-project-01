@@ -5,25 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promo ENI - Accueil</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="promo-eni.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,menu" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="yacf.css">
+    <link rel="stylesheet" href="promo-eni.css">
     </head>
 <body data-theme="dark">
     <nav aria-label="Navigation principale">
     </nav>
 
         <main>
+            <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Accueil</h2>
             <div>
                 <div>
-                    <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Accueil</h2>
-                </div>
-            </div>
-            <div>
-                <div style="flex-grow: 2;">
                     <h3>Liste des apprenants</h3>
                     <div id="apprenants"></div>
                 </div>
@@ -53,12 +49,13 @@
                         </div>
                     </div>
                     <h3>Anecdote</h3>
-                    <div><p id="anecdote"></p></div>
+                    <p id="anecdote"></p>
                     <div><button onclick="document.querySelector('dialog').close()">Fermer</button></div>
                 </div>
             </dialog>
         </main>
 
-    <script src="script.js" defer></script>
+        <script src="script.js" defer></script>
+        <script src="yacf.js" defer></script>
 </body>
 </html>
