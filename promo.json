@@ -1,8 +1,8 @@
 {
-  "nom-promo": "Promo 2026",
+  "nom-promo": "PROMO 2025",
   "date-debut": "31/03/2025",
   "date-fin": "10/01/2026",
-  "description": "<p>Diplôme “Concepteur développeur d’applications”, reconnu par l’État Niveau 6 (Niveau Bac +3)</p><ul><li>Prendre en charge les études fonctionnelles et techniques</li><li>Spécifier et concevoir techniquement une application informatique de type client/serveur, n-tiers ou mobile</li><li>Programmer une application informatique</li><li>Participer à la gestion de projet informatique</li></ul>",
+  "description": "<p>Diplôme “Concepteur développeur d’applications”, reconnu par l’État Niveau 6 (Niveau Bac +3)</p><ul><li>Prendre en charge les études fonctionnelles et techniques</li><li>Concevoir techniquement une application informatique client/serveur, n-tiers ou mobile</li><li>Programmer une application informatique</li><li>Participer à la gestion de projet informatique</li></ul>",
   "apprenants" : [
     {
       "id": 1,
@@ -50,6 +50,18 @@
       "coordonnees": {
         "latitude": "47.183017",
         "longitude": "-1.532262"
+      }
+    },
+    {
+      "id": 5,
+      "nom": "Butaeye",
+      "prenom": "Seraphin",
+      "ville": "Godewaersvelde",
+      "avatar": "avatar-seraphin.png",
+      "anecdotes": "Dessine sur mon temps libre + pratique sport de combat",
+      "coordonnees": {
+        "latitude": "50.794013",
+        "longitude": "2.643367"
       }
     }
   ]

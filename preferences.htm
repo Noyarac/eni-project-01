@@ -7,36 +7,36 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,menu" />
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,menu">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="yacf.css">
     <link rel="stylesheet" href="promo-eni.css">
 </head>
-<body data-theme="dark">
-        <nav aria-label="Navigation principale">
-        </nav>
+<body>
+    <nav aria-label="Navigation principale">
+    </nav>
 
-        <main>
-            <h2>Préférences du site</h2>
+    <main>
+        <h2>Préférences du site</h2>
+        <div>
             <div>
-                <div>
-                    <label for="theme"><h3>Thème du site</h3></label>
-                    <select name="theme" id="theme">
-                        <option value="light">Clair</option>
-                        <option value="dark">Sombre</option>
-                    </select>
-                </div>
-                <div role="radiogroup" aria-labelledby="display-label">
-                    <h3 id="display-label">Type d'affichage de la liste des apprenants</h3>
-                    <div role="radio" aria-checked="true" tabindex="0" value="list">Liste (Table)</div>
-                    <div role="radio" aria-checked="false" tabindex="-1" value="cards">Cartes (Grid)</div>
-                </div>
+                <label for="theme"><h3>Thème du site</h3></label>
+                <select name="theme" id="theme">
+                    <option value="light">Clair</option>
+                    <option value="dark">Sombre</option>
+                </select>
             </div>
-            <div>
-                <button onclick="savePreferences()" aria-label="Enregistrer">Enregistrer</button>
-                <button onclick="location.href='index.htm'" aria-label="Retour à l'accueil">Retour à la page d'accueil</button>
+            <div role="radiogroup" aria-labelledby="display-label">
+                <h3 id="display-label">Type d'affichage de la liste des apprenants</h3>
+                <div role="radio" value="list" aria-label="liste">Liste (Table)</div>
+                <div role="radio" value="cards" aria-label="cartes">Cartes (Grid)</div>
             </div>
-        </main>
+        </div>
+        <div>
+            <button onclick="savePreferences()" aria-label="Enregistrer">Enregistrer</button>
+            <button onclick="location.href='index.htm'" aria-label="Retour à l'accueil">Retour à la page d'accueil</button>
+        </div>
+    </main>
 
     <script src="script.js" defer></script>
     <script src="yacf.js" defer></script>

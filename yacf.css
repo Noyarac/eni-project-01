@@ -1,4 +1,4 @@
-[data-theme='dark'] {
+[data-yacl-theme='dark'] {
     --color-background: #0a0b0d;
     --color-panel-bg: #23262b;
     --color-nav-bg: #23262b;
@@ -26,14 +26,14 @@
     --font-weight-medium: 500;
     --font-weight-black: 900;
 }
-[data-theme='dark'] [role="radio"]::before {
+[data-yacl-theme='dark'] [role="radio"]::before {
     content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(211, 211, 211)' fill='rgb(61, 62, 64)' stroke-width='2' fill-opacity='100' /%3E%3C/svg%3E");
 }
-[data-theme='dark'] [role="radio"][aria-checked="true"]::before {
+[data-yacl-theme='dark'] [role="radio"][aria-checked="true"]::before {
     content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(211, 211, 211)' fill='rgb(61, 62, 64)' stroke-width='2' fill-opacity='100'/%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.2rem' fill='rgb(62, 198, 153)' stroke-opacity='0' /%3E%3C/svg%3E");
 }
 
-[data-theme='light'] {
+[data-yacl-theme='light'] {
     --color-background: #e6e9ed;
     --color-panel-bg: #f7f9fc;
     --color-nav-bg: #f7f9fc;
@@ -61,16 +61,16 @@
     --font-weight-medium: 400;
     --font-weight-black: 800;
 }
-[data-theme='light'][data-yacf-depth='4'] h4 {
+[data-yacl-theme='light'][data-yacf-depth='4'] h4 {
     font-weight: var(--font-weight-black);
 }
-[data-theme='light'] [role="radio"]::before {
+[data-yacl-theme='light'] [role="radio"]::before {
     content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(104, 104, 104)' stroke-width='2' fill-opacity='0' /%3E%3C/svg%3E");
 }
-[data-theme='light'] [role="radio"][aria-checked="true"]::before {
+[data-yacl-theme='light'] [role="radio"][aria-checked="true"]::before {
     content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1rem' width='1rem' style='forced-color-adjust: auto;'%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.45rem' stroke='rgb(104, 104, 104)' stroke-width='2' fill-opacity='0'/%3E%3Ccircle cx='0.5rem' cy='0.5rem' r='0.2rem' fill='rgb(36, 192, 140)' stroke-opacity='0' /%3E%3C/svg%3E");
 }
-[data-theme='light'] h3 {
+[data-yacl-theme='light'] h3 {
     font-weight: bold;
 }
 
@@ -78,6 +78,7 @@
     margin: 0;
     padding: 0;
     border: 0;
+    border-radius: 0.25rem;
     font-family: "Roboto", sans-serif;
     font-size: 12pt;
     font-weight: var(--font-weight-medium);
@@ -111,7 +112,8 @@ body {
 }
 
 [data-yacf-depth='3'] h1,
-[data-yacf-depth='4'] h1 {
+[data-yacf-depth='4'] h1,
+h1.forceTitle {
     font-family: "Josefin Sans", sans-serif;
     font-weight: var(--font-weight-thin);
     font-size: 4rem;
@@ -139,6 +141,9 @@ a, a:visited {
 
 a:hover, a:visited:hover {
     text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-decoration-style: wavy;
+    text-underline-offset: 0.15rem;
 }
 
 button {
@@ -168,6 +173,15 @@ select {
     border: 0.1rem solid var(--color-table-bg);
 }
 
+ul {
+    list-style-type: square;
+    list-style-position: inside;
+    padding: 1rem;
+}
+
+li::marker {
+    color: var(--color-heading)
+}
 table {
     background-color: var(--color-table-bg);
     border-collapse: collapse;
@@ -221,6 +235,7 @@ nav button {
 }
 
 nav ul {
+    padding: 0;
     position: relative;
     list-style-type: none;
     display: flex;
@@ -304,6 +319,10 @@ main>div>div {
     padding: 3rem;
 }
 
+.noBg {
+    background-color: unset;
+}
+
 dialog {
     margin:auto;    
     border: 0;
@@ -370,7 +389,7 @@ dialog::backdrop {
     cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1024px) {
     nav {
         z-index: 20000;
     }
@@ -386,6 +405,7 @@ dialog::backdrop {
     }
 
     nav ul {
+        display: none;
         background-color: var(--color-table-evenRows);
         flex-flow: column nowrap;
         position: absolute;

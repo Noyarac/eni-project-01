@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,55 +8,66 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,menu" />
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,menu">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="yacf.css">
     <link rel="stylesheet" href="promo-eni.css">
-    </head>
-<body data-theme="dark">
+</head>
+
+<body>
     <nav aria-label="Navigation principale">
     </nav>
 
-        <main>
-            <h2 class="mt-3 mb-4 mt-sm-5 mb-sm-4">Accueil</h2>
-            <div>
-                <div>
-                    <h3>Liste des apprenants</h3>
-                    <div id="apprenants"></div>
-                </div>
-                <div style="flex-grow: 0;" role="radiogroup" aria-labelledby="display-label">
-                    <h3 id="display-label">Type d'affichage</h3>
-                    <div role="radio" aria-checked="true" tabindex="0" value="list" aria-label="Afficher en liste">Liste (Table)</div>
-                    <div role="radio" aria-checked="false" tabindex="-1" value="cards" aria-label="Afficher en cartes">Cartes (Grid)</div>
-                </div>
+    <main>
+        <h2>Accueil</h2>
+        <h3 id="display-label">Type d'affichage</h3>
+        <div role="radiogroup" aria-labelledby="display-label">
+            <div class="noBg" role="radio" value="list" aria-label="Afficher en liste">
+                Liste (Table)
             </div>
-            <dialog>
-                <div id="modal">
-                    <div>
-                        <img src="" alt="">
-                        <div id="modal-details">
-                            <h3>Détails</h3>
-                            <table>
-                                <tr>
-                                    <th>Nom</th><td id="modal-nom"></td>
-                                </tr>
-                                <tr>
-                                    <th>Prénom</th><td id="modal-prenom"></td>
-                                </tr>
-                                <tr>
-                                    <th>Ville</th><td id="modal-ville"></td>
-                                </tr>
-                            </table>
-                        </div>
+            <div class="noBg" role="radio" value="cards" aria-label="Afficher en cartes">
+                Cartes (Grid)
+            </div>
+        </div>
+        <div>
+            <div>
+                <h3>Liste des apprenants</h3>
+                <div id="apprenants"></div>
+            </div>
+        </div>
+        <dialog>
+            <div id="modal">
+                <div>
+                    <img src="" alt="">
+                    <div id="modal-details">
+                        <h3>Détails</h3>
+                        <table>
+                            <tr>
+                                <th>Nom</th>
+                                <td id="modal-nom"></td>
+                            </tr>
+                            <tr>
+                                <th>Prénom</th>
+                                <td id="modal-prenom"></td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td id="modal-ville"></td>
+                            </tr>
+                        </table>
                     </div>
-                    <h3>Anecdote</h3>
-                    <p id="anecdote"></p>
-                    <div><button onclick="document.querySelector('dialog').close()">Fermer</button></div>
                 </div>
-            </dialog>
-        </main>
+                <h3>Anecdote</h3>
+                <p id="anecdote"></p>
+                <div><button onclick="document.querySelector('dialog').close()">Fermer</button></div>
+            </div>
+        </dialog>
+    </main>
 
-        <script src="script.js" defer></script>
-        <script src="yacf.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="yacf.js" defer></script>
 </body>
+
 </html>

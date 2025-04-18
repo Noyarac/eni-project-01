@@ -1,35 +1,18 @@
 const pageName = window.location.pathname.split('/').pop().split('.htm')[0];
 
-window.onload = init;
-async function init() {
+window.onload = async () => {
   await loadNav();
-  const radios = document.querySelectorAll('[role="radiogroup"]');
-  for (let i = 0; i < radios.length; i++) {
-    new RadioGroup(radios[i]);
-  }
-
-  let themeValue = localStorage.getItem('theme');
-  let displayValue = localStorage.getItem('display');
-  if (!themeValue) {
-    const preferdTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
-    localStorage.setItem('theme', preferdTheme);
-    themeValue = preferdTheme;
-  }
-  if (!displayValue) {
-    localStorage.setItem('display', 'list');
-    displayValue = 'list';
-  }
-  const option = document.querySelector(`option[value=${themeValue}]`);
-  if (option) option.setAttribute("selected", true);
-  document.body.setAttribute('data-theme', themeValue)
-  const radio = document.querySelector(`[role='radio'][value=${displayValue}]`);
-  if (radio) radio.click();
-
-  document.getElementById('nav-' + pageName).setAttribute("aria-current", "page");
+  if (!localStorage.getItem('display')) localStorage.setItem('display', 'list');
 
   switch(pageName) {
     case 'index':
-      if (displayValue) {if (displayValue == "list") {generateTable()} else {generateCards()}};
+      let displayValue = localStorage.getItem('display');
+      document.querySelector(`[role='radio'][value=${displayValue}]`).click();
+      if (displayValue == "list") {generateTable()} else {generateCards()};
+      break;
+    case 'preferences':
+      document.querySelector(`option[value=${localStorage.getItem('yacl-theme')}]`).setAttribute("selected", true);
+      document.querySelector(`div[value=${localStorage.getItem('display')}]`).click();
       break;
     case 'carte':
       loadMap();
@@ -39,170 +22,25 @@ async function init() {
   }
 }
 
-class RadioGroup {
-    constructor(groupNode) {
-      this.groupNode = groupNode;
-  
-      this.radioButtons = [];
-  
-      this.firstRadioButton = null;
-      this.lastRadioButton = null;
-  
-      var rbs = this.groupNode.querySelectorAll('[role=radio]');
-  
-      for (var i = 0; i < rbs.length; i++) {
-        var rb = rbs[i];
-  
-        rb.tabIndex = -1;
-        rb.setAttribute('aria-checked', 'false');
-  
-        rb.addEventListener('keydown', this.handleKeydown.bind(this));
-        rb.addEventListener('focus', this.handleFocus.bind(this));
-        rb.addEventListener('click', this.handleClick.bind(this));
-        rb.addEventListener('blur', this.handleBlur.bind(this));
-  
-        this.radioButtons.push(rb);
-  
-        if (!this.firstRadioButton) {
-          this.firstRadioButton = rb;
-        }
-        this.lastRadioButton = rb;
-      }
-      this.firstRadioButton.tabIndex = 0;
-    }
-  
-    setChecked(currentItem) {
-      for (var i = 0; i < this.radioButtons.length; i++) {
-        var rb = this.radioButtons[i];
-        rb.setAttribute('aria-checked', 'false');
-        rb.tabIndex = -1;
-      }
-      currentItem.setAttribute('aria-checked', 'true');
-      currentItem.tabIndex = 0;
-      // currentItem.focus();
-    }
-  
-    setCheckedToPreviousItem(currentItem) {
-      var index;
-  
-      if (currentItem === this.firstRadioButton) {
-        this.setChecked(this.lastRadioButton);
-        this.lastRadioButton.focus();
-      } else {
-        index = this.radioButtons.indexOf(currentItem);
-        this.setChecked(this.radioButtons[index - 1]);
-        this.radioButtons[index - 1].focus();
-      }
-    }
-  
-    setCheckedToNextItem(currentItem) {
-      var index;
-  
-      if (currentItem === this.lastRadioButton) {
-        this.setChecked(this.firstRadioButton);
-        this.firstRadioButton.focus();
-      } else {
-        index = this.radioButtons.indexOf(currentItem);
-        this.setChecked(this.radioButtons[index + 1]);
-        this.radioButtons[index + 1].focus();
-      }
-    }
-  
-    /* EVENT HANDLERS */
-  
-    handleKeydown(event) {
-      var tgt = event.currentTarget,
-        flag = false;
-  
-      switch (event.key) {
-        case ' ':
-          this.setChecked(tgt);
-          flag = true;
-          break;
-  
-        case 'Up':
-        case 'ArrowUp':
-        case 'Left':
-        case 'ArrowLeft':
-          this.setCheckedToPreviousItem(tgt);
-          flag = true;
-          break;
-  
-        case 'Down':
-        case 'ArrowDown':
-        case 'Right':
-        case 'ArrowRight':
-          this.setCheckedToNextItem(tgt);
-          flag = true;
-          break;
-  
-        default:
-          break;
-      }
-  
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-  
-    handleClick(event) {
-      this.setChecked(event.currentTarget);
-    }
-  
-    handleFocus(event) {
-      event.currentTarget.classList.add('focus');
-      if (pageName == 'index') toggleDisplay(event);
-      this.setChecked(event.currentTarget);
-    }
 
-  
-    handleBlur(event) {
-      event.currentTarget.classList.remove('focus');
-    }
-  }
-
-
-async function loadNav() {
+function loadNav() {
     return fetch(`./nav.htm`)
     .then(response => response.text())
     .then(data => {
         const nav = document.querySelector('nav');
         nav.innerHTML = data;
-
-        nav.querySelector('nav button').addEventListener('click', toggleMenu)
-
-        document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove("nav-active"));
-        const a = nav.querySelector('#nav-' + pageName);
-        a.classList.add("nav-active");
-        if (window.innerWidth < 800) toggleMenu();
+        document.dispatchEvent(new Event('navLoaded'));
     })
 }
 
-function toggleMenu() {
-    let button = document.querySelector('nav button');
-    let span = button.querySelector('span');
-    let ul = document.querySelector('nav ul');
-
-    if (span.innerText == 'menu') {
-        span.innerText = 'close';
-        ul.style.display = 'flex';
-        ul.setAttribute('aria-hidden', false);
-    } else {
-        span.innerText = 'menu';
-        ul.style.display = 'none';
-        ul.setAttribute('aria-hidden', true);
-    }
-}
 function saveDisplay() {
-    const value = document.querySelector("[aria-checked='true']").getAttribute('value');
-    localStorage.setItem('display', value);
+    localStorage.setItem('display', document.querySelector("[aria-checked='true']").getAttribute('value'));
 }
 
 function saveTheme() {
     const value =  document.querySelector('select').value;
-    localStorage.setItem('theme', value);
-    document.body.setAttribute('data-theme', value);
+    localStorage.setItem('yacl-theme', value);
+    document.body.setAttribute('data-yacl-theme', value);
 }
 
 function savePreferences() {
@@ -290,18 +128,18 @@ function loadMap() {
   fetch('./promo.json')
   .then(response => response.json())
   .then(data => {
-    function getAverage(axe) {
-      return data.apprenants.map(apprenant => parseFloat(apprenant.coordonnees[axe])).reduce((total, current) => {total += current; return total}, 0)/data.apprenants.length;
-    }
-    let map = L.map('map').setView([getAverage('latitude'), getAverage('longitude')], 7);
+    let map = L.map('map');
+    const bounds = L.latLngBounds();
+    data.apprenants.forEach(apprenant => {
+      const latLng = [parseFloat(apprenant.coordonnees.latitude), parseFloat(apprenant.coordonnees.longitude)];
+      L.marker(latLng).addTo(map).bindPopup(apprenant.prenom + ' ' + apprenant.nom);
+      bounds.extend(latLng);
+    });
+    map.fitBounds(bounds);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    data.apprenants.forEach(apprenant => {
-      const marker = L.marker([parseFloat(apprenant.coordonnees.latitude), parseFloat(apprenant.coordonnees.longitude)]).addTo(map);
-      marker.bindPopup(apprenant.prenom + ' ' + apprenant.nom);
-    });
   });
 }
 
