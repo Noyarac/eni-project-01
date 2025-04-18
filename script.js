@@ -29,7 +29,6 @@ function loadNav() {
     .then(data => {
         const nav = document.querySelector('nav');
         nav.innerHTML = data;
-        document.dispatchEvent(new Event('navLoaded'));
     })
 }
 

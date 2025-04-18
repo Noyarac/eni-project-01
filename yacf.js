@@ -122,20 +122,21 @@ class RadioGroup {
   }
 
 
-
-new MutationObserver((mutationList) => {
-    if (mutationList.some(mutation => mutation.type === "childList")) updateDepth();
+new MutationObserver(mutationList => {
+    if (mutationList.some(mutation => mutation.type === "childList")) {
+        updateDepth();
+        updateNav();
+    }
 }).observe(document.body, {childList: true, subtree: true});
 updateDepth();
 
-document.addEventListener('navLoaded', () => {
+function updateNav() {
     const pageName = window.location.pathname.split('/').pop().split('.htm')[0];
     document.querySelector('nav button').addEventListener('click', toggleMenu)
     document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove("nav-active"));
     document.getElementById('nav-' + pageName).classList.add("nav-active");
     document.getElementById('nav-' + pageName).setAttribute("aria-current", "page");
-
-})
+}
 
 let themeValue = localStorage.getItem('yacl-theme');
 if (!themeValue) {
@@ -145,13 +146,10 @@ if (!themeValue) {
 }
 document.body.setAttribute('data-yacl-theme', themeValue);
 
-
 const radios = document.querySelectorAll('[role="radiogroup"]');
 for (let i = 0; i < radios.length; i++) {
   new RadioGroup(radios[i]);
 }
-
-
 
 function updateDepth() {
     switch (true) {
